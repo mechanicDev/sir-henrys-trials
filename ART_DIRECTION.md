@@ -70,3 +70,15 @@ Append the specific subject, pose, equipment, composition and background require
 - Is it ready for direct use in the game?
 
 The approved image is the primary visual reference. This document records its style so future assets remain consistent; it is not a reason to delay playable development.
+
+## Character Handedness and Direction
+
+- Henry is right-handed.
+- The sword is always held in his anatomical right hand.
+- The shield is always held in his anatomical left hand.
+- Facing right: sword arm is closest to the viewer.
+- Facing left: shield arm is closest to the viewer.
+- Directional animations must preserve anatomical handedness.
+- All animation frames must maintain consistent proportions,
+  equipment dimensions, and joint attachment points.
+- Standard Page Henry animation canvas: 512 x 800 pixels.

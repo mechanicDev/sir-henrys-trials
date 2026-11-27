@@ -18,6 +18,15 @@ export default class RoyalMeadows extends Phaser.Scene {
       "royal-meadows-ground-center",
       "/assets/environments/royal-meadows/terrain/royal-meadows-ground-center.png?v=2",
     );
+    // Page Henry running animation
+    for (let i = 0; i < 12; i++) {
+      const frame = String(i).padStart(4, "0");
+
+      this.load.image(
+        `henry-page-run-${frame}`,
+        `/assets/characters/henry/page/run/henry-page-run-${frame}.png`,
+      );
+    }
   }
 
   create() {
@@ -73,8 +82,17 @@ export default class RoyalMeadows extends Phaser.Scene {
       tile.setDepth(-1);
     }
 
+    this.anims.create({
+      key: "henry-page-run",
+      frames: Array.from({ length: 12 }, (_, i) => ({
+        key: `henry-page-run-${String(i).padStart(4, "0")}`,
+      })),
+      frameRate: 12,
+      repeat: -1,
+    });
+
     // Create Henry's visible sprite
-    this.henry = this.add.image(
+    this.henry = this.add.sprite(
       this.player.x,
       this.player.y,
       "henry-page-idle",
@@ -145,6 +163,18 @@ export default class RoyalMeadows extends Phaser.Scene {
       this.henry.setFlipX(true);
     } else if (body.velocity.x > 0) {
       this.henry.setFlipX(false);
+    }
+
+    // Character animation
+    if (body.velocity.x !== 0 && body.blocked.down) {
+      this.henry.play("henry-page-run", true);
+      this.henry.setScale(0.2415);
+      this.henry.setOrigin(0.5, 0.85);
+    } else {
+      this.henry.stop();
+      this.henry.setTexture("henry-page-idle");
+      this.henry.setScale(110 / this.henry.height);
+      this.henry.setOrigin(0.5, 1);
     }
   }
 }
